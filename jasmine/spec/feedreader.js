@@ -87,9 +87,9 @@ $(function() {
 
         it('should have at least a single .entry element within the .feed container', function(done) {
             // feed has children and that are of a class entry-link
-            expect($('.feed').children().first().attr('class')).toBe("entry-link")
+            expect($('.feed').children().first().attr('class')).toBe("entry-link");
             done();
-        })
+        });
     });
 
     describe('New Feed Selection', function() {
