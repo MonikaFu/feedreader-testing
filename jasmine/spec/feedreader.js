@@ -57,7 +57,7 @@ $(function() {
          * hidden by default. 
          */
          it('should be hidden by default', function() {
-            expect($('body').attr('class')).toBe("menu-hidden");
+            expect($('body').hasClass('menu-hidden')).toBe(true);
          });
 
          /* Test that ensures the menu changes
@@ -66,11 +66,11 @@ $(function() {
         it('should change visibility when menu icon is clicked', function() {
             // menu is visible on the first click
             $('.icon-list').trigger('click');
-            expect($('body').attr('class')).toBe("");
+            expect($('body').hasClass('menu-hidden')).toBe(false);
 
             // menu is hidden on the second click
             $('.icon-list').trigger('click');
-            expect($('body').attr('class')).toBe("menu-hidden");
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
 
@@ -80,15 +80,12 @@ $(function() {
          * a single .entry element within the .feed container.
          */
         beforeEach(function(done) {
-            loadFeed(0,function() {
-                done();
-            });
+            loadFeed(0,done);
          });
 
-        it('should have at least a single .entry element within the .feed container', function(done) {
+        it('should have at least a single .entry element within the .feed container', function() {
             // feed has children and that are of a class entry-link
-            expect($('.feed').children().first().attr('class')).toBe("entry-link");
-            done();
+            expect($('.feed .entry')).toBeDefined();
         });
     });
 
@@ -103,6 +100,8 @@ $(function() {
             text2;
 
         beforeEach(function(done) {
+            //load the initial feed
+            loadFeed(0)
             //read the title of the link on initiation
             text1 = $('.feed').children().first().text();
             // load a different feed
@@ -111,16 +110,13 @@ $(function() {
             });
         });
 
-        it('should change the content when a different feed is loaded', function(done) {
+        it('should change the content when a different feed is loaded', function() {
             // read the title of the link after the call in beforeEach
             text2 = $('.feed').children().first().text();
             // the titles should not be the same
             expect(text1).not.toBe(text2);
             // load back the initial feed
-            loadFeed(0,function() {
-                done();
-            });
-            done();
+            loadFeed(0)
         });
     });
 });
