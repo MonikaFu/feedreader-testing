@@ -101,7 +101,7 @@ $(function() {
 
         beforeEach(function(done) {
             //load the initial feed
-            loadFeed(0)
+            loadFeed(0);
             //read the title of the link on initiation
             text1 = $('.feed').children().first().text();
             // load a different feed
@@ -116,7 +116,7 @@ $(function() {
             // the titles should not be the same
             expect(text1).not.toBe(text2);
             // load back the initial feed
-            loadFeed(0)
+            loadFeed(0);
         });
     });
 });
