@@ -85,7 +85,7 @@ $(function() {
 
         it('should have at least a single .entry element within the .feed container', function() {
             // feed has children and that are of a class entry-link
-            expect($('.feed .entry')).toBeDefined();
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
@@ -100,23 +100,23 @@ $(function() {
             text2;
 
         beforeEach(function(done) {
-            //load the initial feed
-            loadFeed(0);
-            //read the title of the link on initiation
-            text1 = $('.feed').children().first().text();
-            // load a different feed
-            loadFeed(1,function() {
+            // load the initial feed, so that we make sure that some feed 
+            // is loaded before we read the title of the feed. Get the title
+            // initial feed after it is loaded (in callback)
+            loadFeed(0, function() {
+                text1 = $('.feed').children().first().text();
                 done();
             });
+            // load a different feed
+            loadFeed(1,done());
         });
 
-        it('should change the content when a different feed is loaded', function() {
+        it('should change the content when a different feed is loaded', function(done) {
             // read the title of the link after the call in beforeEach
             text2 = $('.feed').children().first().text();
             // the titles should not be the same
             expect(text1).not.toBe(text2);
-            // load back the initial feed
-            loadFeed(0);
+            done();
         });
     });
 });
