@@ -101,21 +101,26 @@ $(function() {
 
         beforeEach(function(done) {
             // load the initial feed, so that we make sure that some feed 
-            // is loaded before we read the title of the feed. Get the title
-            // initial feed after it is loaded (in callback)
+            // is loaded before we read the title of the feed. Pass the callback
             loadFeed(0, function() {
+                // Callback function
+
+                //Get the title of the
+                // initial feed after it is loaded 
                 text1 = $('.feed').children().first().text();
-                done();
+                // load another feed after the initial feed is loaded 
+                // and pass the done function in it's callback to be executed 
+                // once the new feed is loaded
+                loadFeed(1,done);
             });
-            // load a different feed
-            loadFeed(1,done());
         });
 
         it('should change the content when a different feed is loaded', function(done) {
-            // read the title of the link after the call in beforeEach
+            // read the title of the first link after the beforeEach has finished 
             text2 = $('.feed').children().first().text();
             // the titles should not be the same
             expect(text1).not.toBe(text2);
+            // call the done function to let indicate that the asynchronus test is done
             done();
         });
     });
